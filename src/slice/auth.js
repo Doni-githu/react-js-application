@@ -15,31 +15,50 @@ export const authSlice = createSlice({
             state.isLoading = true
             state.error = null
         },
-        SuccessLogin: (state, paylaod) => {
+        SuccessLogin: (state, action) => {
             state.isLoading = false
-            state.user = paylaod
+            state.user = action.payload
+            localStorage.setItem("token", action.payload.token)
             state.isLoggedIn = true
         },
-        FailurLogin: (state, paylaod) => {
-            state.error = paylaod
+        FailurLogin: (state, action) => {
+            state.error = action.payload
         },
         StartRegister: (state) => {
             state.isLoading = true
             state.error = null
             state.user = null
         },
-        SuccessRegister: (state, paylaod) => {
+        SuccessRegister: (state, action) => {
             state.isLoading = false
-            state.user = paylaod
+            state.user = action.payload
+            localStorage.setItem("token", action.payload.token)
             state.isLoggedIn = true
         },
-        FailurRegister: (state, paylaod) => {
-            state.error = paylaod
+        FailurRegister: (state, action) => {
+            state.error = action.payload
             state.isLoading = false
         },
+        getUserStart: (state) => {
+            state.isLoading = true
+            state.user = null
+        },
+        getUserSuccess: (state, action) => {
+            state.isLoading = false
+            state.user = action.payload
+            state.isLoggedIn = true
+        },
+        getUserFailur: (state, action) => {
+            state.isLoading = false
+            state.error = action.payload
+        },
+        getUserRemove: (state, action) => {
+            state.isLoggedIn = false
+            localStorage.removeItem("token")
+        }
     }
 })
 
 
-export const { StartLogin, StartRegister, SuccessRegister, FailurLogin, FailurRegister, SuccessLogin } = authSlice.actions
+export const { StartLogin, StartRegister, SuccessRegister, FailurLogin, FailurRegister, SuccessLogin, getUserStart, getUserSuccess, getUserFailur, getUserRemove } = authSlice.actions
 export default authSlice.reducer

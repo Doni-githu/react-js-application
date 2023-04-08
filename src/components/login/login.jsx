@@ -1,20 +1,24 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Input from '../../ui-components/Input'
 import { useDispatch, useSelector } from 'react-redux'
 import { FailurRegister, StartLogin, SuccessLogin } from "../../slice/auth"
 import Auth from "../../service/auth"
 import { useNavigate } from 'react-router-dom'
-import Error from '../../ui-components/Error'
 export default function Login() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const { isLoading } = useSelector(state => state.auth)
+    const { isLoading, isLoggedIn } = useSelector(state => state.auth)
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
+    useEffect(() => {
+        if (isLoggedIn) {
+            navigate("/")
+        }
+    })
+
     const FindUser = () => {
         if (!email || !password) {
-            // dispatch(FailurRegister("All fields are required"))  
             return
         }
         const user = {

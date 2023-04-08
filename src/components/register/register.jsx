@@ -1,18 +1,24 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Input from '../../ui-components/Input'
 import { useDispatch, useSelector } from 'react-redux'
 import { FailurRegister, StartRegister, SuccessRegister } from '../../slice/auth'
 import Auth from "../../service/auth"
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 export default function Register() {
     const [nickname, setNickname] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
-    const { isLoading } = useSelector(state => state.auth)
+    const { isLoading, isLoggedIn } = useSelector(state => state.auth)
     const dispatch = useDispatch()
     const navigate = useNavigate()
+
+    useEffect(()=>{
+        if(isLoggedIn){
+            navigate('/')
+        }
+    }, [])
 
     const FindUser = async () => {
         if (!email || !password) {

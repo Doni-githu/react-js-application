@@ -1,7 +1,15 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { getUserRemove } from '../../slice/auth'
 
 export default function Navbar() {
+    const state = useSelector(state => state.auth)
+    const dispatch = useDispatch()
+    const removeItem = () => {
+        dispatch(getUserRemove())
+    }
+
     return (
         <div className="d-flex flex-column flex-md-row align-items-center pb-3 mt-3 mb-4 border-bottom">
             <Link to={"/"} className="d-flex align-items-center link-body-emphasis text-decoration-none">
@@ -10,8 +18,17 @@ export default function Navbar() {
             </Link>
 
             <nav className="d-flex mt-2 mt-md-0 ms-md-auto" style={{ gap: "20px" }}>
-                <Link to={"/login"} className='text-decoration-none text-dark'>Login</Link>
-                <Link to={"/register"} className='text-decoration-none text-dark'>Register</Link>
+                {state.isLoggedIn === true ?
+                    <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
+                        <Link to={"/login"} className='text-decoration-none text-dark'>{state?.user?.user?.username}</Link>
+                        <button className='btn btn-danger' onClick={() => removeItem()}>
+                            Logout
+                        </button>
+                    </div> : <>
+                        <Link to={"/login"} className='text-decoration-none text-dark'>Login</Link>
+                        <Link to={"/register"} className='text-decoration-none text-dark'>Register</Link>
+                    </>}
+
             </nav>
         </div>
     )
