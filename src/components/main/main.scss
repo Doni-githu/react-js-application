@@ -1,0 +1,17 @@
+.flex {
+    width: 100%;
+    display: flex;
+    gap: 50px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    &>.colomn {
+        width: 400px;
+    }
+}
+
+@media only screen and (max-width: 1058px) {
+    .flex{
+        justify-content: center;
+    }
+}
