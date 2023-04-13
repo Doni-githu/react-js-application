@@ -15,7 +15,7 @@ export default function Main() {
     return (
         <div className="flex">
             {state.data ? state.data.map((item) => (
-                <div className="colomn">
+                <div className="colomn" key={item.id}>
                     <div className="card shadow-sm">
                         <img src={item.src} alt="Image" />
                         <div className="card-body">

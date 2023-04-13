@@ -4,18 +4,20 @@ import { useDispatch, useSelector } from 'react-redux'
 import { FailurRegister, StartRegister, SuccessRegister } from '../../slice/auth'
 import Auth from "../../service/auth"
 import { useNavigate } from 'react-router-dom'
+import Error from '../../ui-components/Error'
 
 export default function Register() {
     const [nickname, setNickname] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [error, setError] = useState(null)
 
     const { isLoading, isLoggedIn } = useSelector(state => state.auth)
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    useEffect(()=>{
-        if(isLoggedIn){
+    useEffect(() => {
+        if (isLoggedIn) {
             navigate('/')
         }
     }, [])
@@ -32,14 +34,13 @@ export default function Register() {
         dispatch(StartRegister())
         Auth.Register(user)
             .then((res) => {
-                console.log(res)
                 dispatch(SuccessRegister(res.data))
                 setEmail("")
                 setNickname("")
                 setPassword("")
                 navigate("/")
             }).catch((err) => {
-                console.log(err.response);
+                setError(err?.response?.data?.message)
                 dispatch(FailurRegister(err.response))
             })
     }
@@ -47,6 +48,7 @@ export default function Register() {
     return (
         <div className='w-50 text-center mx-auto'>
             <p className='fs-1'>Register</p>
+            {error ? <Error error={error} setErr={setError} /> : null}
             <form onSubmit={(e) => e.preventDefault()}>
                 <Input label={"Nickname"} state={nickname} setState={setNickname} />
                 <Input label={"Email"} type={"email"} state={email} setState={setEmail} />

@@ -8,7 +8,24 @@ export default function Add() {
     const [title, setTitle] = useState("")
     const [body, setBody] = useState("")
     const [image, setImage] = useState({})
+    const [src, setSrc] = useState('')
     const navigate = useNavigate()
+    const convertToBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+
+            const fr = new FileReader()
+
+            fr.readAsDataURL(file)
+
+            fr.onload = () => {
+                resolve(fr.result)
+            }
+
+            fr.onerror = (err) => {
+                reject(err)
+            }
+        })
+    }
     const addPost = async () => {
         if (!title || !body || !image) {
             return
@@ -21,8 +38,8 @@ export default function Add() {
         fd.append('image', image)
 
         Post.AddPost(fd)
-            .then(res => {
-                navigate('/')
+            .then((res) => {
+                setSrc(res.data);
             })
             .catch(err => console.log(err))
     }
@@ -35,7 +52,7 @@ export default function Add() {
                 <Input label={"Body"} state={body} setState={setBody} />
                 <div>
                     <label htmlFor="files">Image</label>
-                    <input multiple type="file" id='files' style={{ display: 'none' }} onChange={e => setImage(e.target.files[0])} />
+                    <input type="file" id='files' style={{ display: 'none' }} onChange={e => setImage(e.target.files[0])} />
                 </div>
                 <button className='btn btn-primary' onClick={() => addPost()}>Add</button>
             </form>

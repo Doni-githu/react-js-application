@@ -9,7 +9,6 @@ import { useDispatch } from 'react-redux'
 import { getUserFailur, getUserStart, getUserSuccess } from '../../slice/auth'
 import Auth from '../../service/auth'
 import Add from '../add/add'
-import GlobalChat from '../globalChat/globalChat'
 export default function App() {
     const dispatch = useDispatch()
     useEffect(() => {
@@ -24,13 +23,12 @@ export default function App() {
     }, [])
     return (
         <div className='conteiner'>
-            {/* <Navbar /> */}
+            <Navbar />
             <Routes>
                 <Route path='/' element={<Main />} />
                 <Route path='/login' element={<Login />} />
                 <Route path='/register' element={<Register />} />
                 <Route path='/add' element={<Add />} />
-                <Route path='/globalChat' element={<GlobalChat />} />
             </Routes>
         </div>
     )

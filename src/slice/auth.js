@@ -52,7 +52,7 @@ export const authSlice = createSlice({
             state.isLoading = false
             state.error = action.payload
         },
-        getUserRemove: (state, action) => {
+        getUserRemove: (state) => {
             state.isLoggedIn = false
             localStorage.removeItem("token")
         }
