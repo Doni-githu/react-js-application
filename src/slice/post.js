@@ -4,6 +4,7 @@ const initialState = {
     data: null,
     error: null,
     isLoading: false,
+    detail: false
 }
 
 export const postSlice = createSlice({
@@ -30,9 +31,33 @@ export const postSlice = createSlice({
         },
         FailurGetAllPost: (state) => {
             state.isLoading = false
-        }
+        },
+        StartGetDetailPost: (state) => {
+            state.isLoading = true
+        },
+        SuccessGetDetailPost: (state, { payload }) => {
+            state.isLoading = false
+            state.detail = payload
+        },
+        StartDelete: (state) => {
+            state.isLoading = true
+        },
+        SuccessDelete: (state) => {
+            state.isLoading = false
+        },
     }
 })
 
-export const { StartPost, SuccessPost, FailurPost, StartGetAllPost, SuccessGetAllPost, FailurGetAllPost} = postSlice.actions
+export const {
+    StartPost,
+    SuccessPost,
+    FailurPost,
+    StartGetAllPost,
+    SuccessGetAllPost,
+    FailurGetAllPost,
+    StartGetDetailPost,
+    SuccessGetDetailPost,
+    StartDelete,
+    SuccessDelete
+} = postSlice.actions
 export default postSlice.reducer

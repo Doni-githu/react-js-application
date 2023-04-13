@@ -9,6 +9,8 @@ import { useDispatch } from 'react-redux'
 import { getUserFailur, getUserStart, getUserSuccess } from '../../slice/auth'
 import Auth from '../../service/auth'
 import Add from '../add/add'
+import Detail from '../detail/detail'
+import Delete from '../delete/delete'
 export default function App() {
     const dispatch = useDispatch()
     useEffect(() => {
@@ -29,6 +31,8 @@ export default function App() {
                 <Route path='/login' element={<Login />} />
                 <Route path='/register' element={<Register />} />
                 <Route path='/add' element={<Add />} />
+                <Route path='/detail/:id' element={<Detail />} />
+                <Route path='/delete/:id' element={<Delete />} />
             </Routes>
         </div>
     )

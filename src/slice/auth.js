@@ -60,5 +60,15 @@ export const authSlice = createSlice({
 })
 
 
-export const { StartLogin, StartRegister, SuccessRegister, FailurLogin, FailurRegister, SuccessLogin, getUserStart, getUserSuccess, getUserFailur, getUserRemove } = authSlice.actions
+export const {
+    StartLogin,
+    StartRegister,
+    SuccessRegister,
+    FailurLogin,
+    FailurRegister,
+    SuccessLogin,
+    getUserStart,
+    getUserSuccess,
+    getUserFailur,
+    getUserRemove } = authSlice.actions
 export default authSlice.reducer

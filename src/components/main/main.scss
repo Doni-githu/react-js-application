@@ -6,6 +6,14 @@
     justify-content: space-evenly;
 
     &>.colomn {
+        height: 450px;
         width: 400px;
+
+        &>.card {
+            &>img {
+                width: 400px;
+                height: 250px;
+            }
+        }
     }
 }

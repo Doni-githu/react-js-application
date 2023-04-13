@@ -6,6 +6,12 @@ const Post = {
     },
     GetAllPost() {
         return axios.get('/article')
+    },
+    GetDetailPost(id) {
+        return axios.get(`/article/${id}`)
+    },
+    DeletePost(id) {
+        return axios.delete(`/article/${id}`)
     }
 }
 
