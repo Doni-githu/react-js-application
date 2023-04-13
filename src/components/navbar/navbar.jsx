@@ -21,6 +21,7 @@ export default function Navbar() {
                 {state.isLoggedIn === true ?
                     <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
                         <Link to={"/login"} className='text-decoration-none text-dark'>{state?.user?.user?.username}</Link>
+                        <Link to={"/add"}>Add</Link>
                         <button className='btn btn-danger' onClick={() => removeItem()}>
                             Logout
                         </button>

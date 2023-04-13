@@ -1,7 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
 import auth from "../slice/auth"
+import post from "../slice/post";
 
 export default configureStore({
-    reducer: { auth },
+    reducer: { auth, post },
     devTools: process.env.NODE_ENV !== 'production'
 })

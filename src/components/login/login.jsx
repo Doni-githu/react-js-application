@@ -47,6 +47,7 @@ export default function Login() {
             <form onSubmit={(e) => e.preventDefault()}>
                 <Input label={"Email"} type={"email"} state={email} setState={setEmail} />
                 <Input label={"Password"} type={"password"} state={password} setState={setPassword} />
+                
                 <button type='submit' className='btn btn-primary' disabled={isLoading} onClick={() => FindUser()}>
                     {isLoading ? "Loading..." : 'Login'}
                 </button>
