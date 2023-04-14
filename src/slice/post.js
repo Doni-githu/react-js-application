@@ -4,7 +4,9 @@ const initialState = {
     data: null,
     error: null,
     isLoading: false,
-    detail: false
+    detail: false,
+    comments: null,
+    message: null
 }
 
 export const postSlice = createSlice({
@@ -33,6 +35,7 @@ export const postSlice = createSlice({
             state.isLoading = false
         },
         StartGetDetailPost: (state) => {
+            state.detail = null
             state.isLoading = true
         },
         SuccessGetDetailPost: (state, { payload }) => {
@@ -45,6 +48,27 @@ export const postSlice = createSlice({
         SuccessDelete: (state) => {
             state.isLoading = false
         },
+        StartCommented: (state) => {
+            state.isLoading = true
+        },
+        SuccessCommented: (state, { payload }) => {
+            state.isLoading = false
+            state.comments = payload
+        },
+        FailurCommented: (state) => {
+            state.isLoading = false
+        },
+        StartEdit: (state) => {
+            state.isLoading = true
+        },
+        SuccessEdit: (state, { payload }) => {
+            state.isLoading = false
+            state.message = payload
+        },
+        FailurEdit: (state, { payload }) => {
+            state.isLoading = false
+            state.error = payload
+        }
     }
 })
 
@@ -58,6 +82,12 @@ export const {
     StartGetDetailPost,
     SuccessGetDetailPost,
     StartDelete,
-    SuccessDelete
+    SuccessDelete,
+    StartCommented,
+    SuccessCommented,
+    FailurCommented,
+    StartEdit,
+    SuccessEdit,
+    FailurEdit
 } = postSlice.actions
 export default postSlice.reducer

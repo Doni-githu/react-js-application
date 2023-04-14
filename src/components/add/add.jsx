@@ -42,7 +42,6 @@ export default function Add() {
             {error ? <Error error={error} setErr={setError} /> : null}
             <form onSubmit={(e) => e.preventDefault()} className='form'>
                 <Input label={"Title"} state={title} setState={setTitle} />
-                {/* <Input label={"Body"} state={body} setState={setBody} /> */}
                 <TextArea label={"Body"} state={body} setState={setBody} />
                 <div className='files'>
                     <label htmlFor="files">Image</label>

@@ -12,6 +12,12 @@ const Post = {
     },
     DeletePost(id) {
         return axios.delete(`/article/${id}`)
+    },
+    CommentPost(data) {
+        return axios.put('/article/comment', data)
+    },
+    EditPost(id, fd) {
+        return axios.put(`/article/edit/${id}`, fd)
     }
 }
 

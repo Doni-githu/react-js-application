@@ -20,14 +20,14 @@ export default function Register() {
         if (isLoggedIn) {
             navigate('/')
         }
-    }, [])
+    }, [isLoggedIn])
 
     const FindUser = async () => {
         if (!email || !password) {
             return
         }
         const user = {
-            name: nickname,
+            username: nickname,
             email: email,
             password: password
         }
