@@ -20,7 +20,7 @@ export default function Navbar() {
             <nav className="d-flex mt-2 mt-md-0 ms-md-auto" style={{ gap: "20px" }}>
                 {state.isLoggedIn === true ?
                     <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
-                        <Link to={"/login"} className='text-decoration-none text-dark'>{state?.user?.user?.username}</Link>
+                        <Link to={"/"} className='text-decoration-none text-dark'>{state?.user?.user?.username}</Link>
                         <Link to={"/add"} className='text-decoration-none text-dark'>Add</Link>
                         <button className='btn btn-danger' onClick={() => removeItem()}>
                             Logout

@@ -2,15 +2,17 @@ import React, { useEffect } from 'react'
 import './main.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import Post from '../../service/post'
-import { SuccessGetAllPost, StartGetAllPost, StartGetDetailPost, SuccessGetDetailPost, FailurGetAllPost } from "../../slice/post"
+import { SuccessGetAllPost, StartGetAllPost, StartGetEditerPost, SuccessGetEditerPost, FailurGetEditerPost } from "../../slice/post"
 import { useNavigate } from 'react-router-dom'
 import Loader from '../../ui-components/Loader'
+import moment from 'moment'
 export default function Main() {
     const state = useSelector(state => state)
     const dispatch = useDispatch()
     const navigate = useNavigate()
     useEffect(() => {
         dispatch(StartGetAllPost())
+        console.log('render');
         Post.GetAllPost()
             .then((res) => {
                 dispatch(SuccessGetAllPost(res.data))
@@ -25,15 +27,8 @@ export default function Main() {
         navigate(`/delete/${id}`)
     }
 
-    const EditPost = (id) => {
-        dispatch(StartGetDetailPost())
-        Post.GetDetailPost(id).then((res) => {
-            navigate(`/edit/${id}`)
-            dispatch(SuccessGetDetailPost(res.data)) 
-        }).catch((err) => {
-            console.log(err)
-            dispatch(FailurGetAllPost())
-        })
+    const momentJS = (date) => {
+        return moment(date).format('DD MMM YYYY')
     }
 
     return (
@@ -48,12 +43,12 @@ export default function Main() {
                             <div className="d-flex justify-content-between align-items-center">
                                 <div className="btn-group">
                                     <button type="button" className="btn btn-sm btn-outline-secondary" onClick={() => goToDetail(item._id)}>Detail</button>
-                                    {state?.auth?.user?.user?._id === item.user._id ? <>
+                                    {!state.auth.isLoggedIn ? null : state?.auth?.user?.user?._id === item.user._id ? <>
                                         <button type="button" className="btn btn-sm btn-outline-danger" onClick={() => deletePost(item._id)}>Delete</button>
-                                        <button type="button" className="btn btn-sm btn-outline-primary" onClick={() => EditPost(item._id)}>Edit</button>
+                                        <button type="button" className="btn btn-sm btn-outline-primary" onClick={() => navigate(`/to-edit/${item._id}`)} disabled={state.post.isLoading}>Edit</button>
                                     </> : null}
                                 </div>
-                                <small className="text-body-secondary">9 mins</small>
+                                <small className="text-body-secondary">{momentJS(item.createdAt)}</small>
                             </div>
                         </div>
                     </div>

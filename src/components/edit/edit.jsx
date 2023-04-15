@@ -4,45 +4,56 @@ import { useDispatch, useSelector } from 'react-redux'
 import TextArea from '../../ui-components/TextArea'
 import Input from '../../ui-components/Input'
 import Error from '../../ui-components/Error'
-import { StartEdit, SuccessEdit, FailurEdit, StartGetDetailPost, SuccessGetDetailPost, FailurGetAllPost } from "../../slice/post"
+import { StartEdit, SuccessEdit, FailurEdit, SuccessGetEditerPost, FailurGetEditerPost, StartGetEditerPost } from "../../slice/post"
 import Post from "../../service/post"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 export default function Edit() {
     const { id } = useParams()
     const state = useSelector(state => state.post)
 
     useEffect(() => {
-        dispatch(StartGetDetailPost())
-        Post.GetDetailPost(id)
+        dispatch(StartGetEditerPost())
+        console.log("render");
+        Post.GetEditerPost(id)
             .then((res) => {
-                console.log(state);
-                dispatch(SuccessGetDetailPost(res.data))
+                dispatch(SuccessGetEditerPost(res.data.product))
+                // console.log();
             }).catch((err) => {
-                dispatch(FailurGetAllPost())
+                dispatch(FailurGetEditerPost())
             })
     }, [])
 
-
-
-    const [title, setTitle] = useState('')
-    const [body, setBody] = useState('')
-    const [image, setImage] = useState({})
+    const [title, setTitle] = useState(state.editer.title)
+    const [body, setBody] = useState(state.editer.body)
+    const [image, setImage] = useState(null)
     const [error, setError] = useState(null)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
 
-    const fd = new FormData()
-
-    fd.append('title', title)
-    fd.append('body', body)
-    fd.append('image', image)
 
     const editPost = () => {
-        console.log(image);
+        if (!title || !body || !image) {
+            setError("All fields are required")
+            return
+        }
+        const fd = new FormData()
+
+        fd.append('title', title)
+        fd.append('body', body)
+        fd.append('image', image)
+
         dispatch(StartEdit())
         Post.EditPost(id, fd)
-            .then((res) => console.log(res))
-            .catch((err) => console.log(err))
+            .then((res) => {
+                console.log(res)
+                navigate('/')
+                SuccessEdit(res.data)
+            })
+            .catch((err) => {
+                FailurEdit(err)
+                console.log(err)
+            })
     }
 
     return (

@@ -6,7 +6,8 @@ const initialState = {
     isLoading: false,
     detail: false,
     comments: null,
-    message: null
+    message: null,
+    editer: null
 }
 
 export const postSlice = createSlice({
@@ -68,6 +69,17 @@ export const postSlice = createSlice({
         FailurEdit: (state, { payload }) => {
             state.isLoading = false
             state.error = payload
+        },
+        StartGetEditerPost: state => {
+            state.isLoading = true
+        },
+        SuccessGetEditerPost: (state, { payload }) => {
+            state.isLoading = false
+            state.editer = payload
+        },
+        FailurGetEditerPost: (state, { payload }) => {
+            state.isLoading = false
+            state.message = payload
         }
     }
 })
@@ -88,6 +100,9 @@ export const {
     FailurCommented,
     StartEdit,
     SuccessEdit,
-    FailurEdit
+    FailurEdit,
+    StartGetEditerPost,
+    SuccessGetEditerPost,
+    FailurGetEditerPost
 } = postSlice.actions
 export default postSlice.reducer

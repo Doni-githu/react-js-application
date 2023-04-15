@@ -12,6 +12,7 @@ import Add from '../add/add'
 import Detail from '../detail/detail'
 import Delete from '../delete/delete'
 import Edit from '../edit/edit'
+import EditHelpers from "../edit-help/edit"
 export default function App() {
     const dispatch = useDispatch()
     useEffect(() => {
@@ -35,6 +36,7 @@ export default function App() {
                 <Route path='/detail/:id' element={<Detail />} />
                 <Route path='/delete/:id' element={<Delete />} />
                 <Route path='/edit/:id' element={<Edit />} />
+                <Route path='/to-edit/:id' element={<EditHelpers />} />
             </Routes>
         </div>
     )

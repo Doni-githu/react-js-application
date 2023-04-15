@@ -18,6 +18,9 @@ const Post = {
     },
     EditPost(id, fd) {
         return axios.put(`/article/edit/${id}`, fd)
+    },
+    GetEditerPost(id){
+        return axios.get(`/article/edit/${id}`)
     }
 }
 
