@@ -5,11 +5,12 @@ import { FailurRegister, StartLogin, SuccessLogin } from "../../slice/auth"
 import Auth from "../../service/auth"
 import { useNavigate } from 'react-router-dom'
 import Error from '../../ui-components/Error'
+import './login.scss'
 export default function Login() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [err, setErr] = useState(null)
-    const { isLoading, isLoggedIn, error } = useSelector(state => state.auth)
+    const { isLoading, isLoggedIn } = useSelector(state => state.auth)
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -46,10 +47,10 @@ export default function Login() {
     }
 
     return (
-        <div className='w-50 text-center mx-auto'>
+        <div className='form'>
             <p className='fs-1'>Login</p>
             {err ? <Error error={err} setErr={setErr} /> : null}
-            <form onSubmit={(e) => e.preventDefault()}>
+            <form className='form' onSubmit={(e) => e.preventDefault()}>
                 <Input label={"Email"} type={"email"} state={email} setState={setEmail} />
                 <Input label={"Password"} type={"password"} state={password} setState={setPassword} />
 

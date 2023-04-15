@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import './main.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import Post from '../../service/post'
-import { SuccessGetAllPost, StartGetAllPost, StartGetEditerPost, SuccessGetEditerPost, FailurGetEditerPost } from "../../slice/post"
+import { SuccessGetAllPost, StartGetAllPost} from "../../slice/post"
 import { useNavigate } from 'react-router-dom'
 import Loader from '../../ui-components/Loader'
 import moment from 'moment'
@@ -12,12 +12,11 @@ export default function Main() {
     const navigate = useNavigate()
     useEffect(() => {
         dispatch(StartGetAllPost())
-        console.log('render');
         Post.GetAllPost()
             .then((res) => {
                 dispatch(SuccessGetAllPost(res.data))
             })
-    }, [])
+    }, [dispatch])
 
     const goToDetail = (id) => {
         navigate(`/detail/${id}`)
@@ -36,7 +35,7 @@ export default function Main() {
             {state.post.data ? state.post.data.map((item, idx) => (
                 <div className="colomn" key={idx}>
                     <div className="card shadow-sm">
-                        <img src={item.src} alt="Image" />
+                        <img src={item.src} alt="img" />
                         <div className="card-body">
                             <p className="card-text">{item.title}</p>
                             <p>Author: {item.user.username}</p>

@@ -17,3 +17,15 @@
         }
     }
 }
+@media only screen and (max-width:450px) {
+    .colomn{
+        width: 300px !important;
+        &>.card{
+            width: 300px;
+            &>img{
+                width: 300px !important;
+                object-fit: cover;
+            }
+        }
+    }
+}

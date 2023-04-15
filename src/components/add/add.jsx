@@ -26,18 +26,16 @@ export default function Add() {
         StartGetAllPost()
         Post.AddPost(fd)
             .then((res) => {
-                console.log(res.data);
                 SuccessGetAllPost(res.data)
                 navigate('/')
             })
             .catch(err => {
                 FailurGetAllPost()
-                console.log(err?.response)
             })
     }
 
     return (
-        <div className='w-50 text-center mx-auto'>
+        <div className='form'>
             <p className='fs-1'>Add</p>
             {error ? <Error error={error} setErr={setError} /> : null}
             <form onSubmit={(e) => e.preventDefault()} className='form'>

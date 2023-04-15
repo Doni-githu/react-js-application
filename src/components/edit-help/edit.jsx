@@ -19,7 +19,6 @@ export default function EditHelpers() {
                 navigate(`/edit/${id}`)
             }).catch((err) => {
                 dispatch(FailurGetEditerPost(err.response))
-                console.log(err)
             })
     }
 

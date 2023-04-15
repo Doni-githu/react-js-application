@@ -1,6 +1,7 @@
 .content {
     display: flex;
     gap: 50px;
+    height: 500px;
     width: 100%;
     border: 1px solid #8d99ae;
     padding: 20px;
@@ -10,6 +11,7 @@
 
         &>.image {
             width: 100%;
+            height: 350px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -17,7 +19,8 @@
 
             &>img {
                 width: 80%;
-                object-fit: contain;
+                height: 100%;
+                object-fit: cover;
             }
         }
 
@@ -28,12 +31,6 @@
             padding: 10px;
         }
 
-        &>.body {
-            padding: 10px;
-            word-break: break-all;
-            font-size: 18px;
-            opacity: 0.7;
-        }
     }
 
     &>.right {
@@ -42,10 +39,33 @@
 
         &>.comments {
             width: 90%;
-            padding: 5px 0;
             overflow-y: scroll;
             list-style: none;
-            height: 500px;
+            height: 300px;
+        }
+
+        &>.navigation {
+            margin-bottom: 20px !important;
+        }
+
+        &>.body {
+            overflow-y: scroll;
+            height: 300px;
+            word-break: break-all;
+        }
+
+        &>.form2 {
+            position: relative;
+
+            &>.btn {
+                right: 0%;
+                top: 5%;
+                position: absolute;
+            }
+
+            &>.input {
+                margin-bottom: 0 !important;
+            }
         }
 
         ::-webkit-scrollbar {
@@ -60,5 +80,28 @@
         ::-webkit-scrollbar-track {
             background-color: transparent;
         }
+
+
+    }
+}
+
+@media only screen and (max-width:1222px) {
+    .content {
+        flex-direction: column;
+        height: auto !important;
+
+        &>.left {
+            width: 100%;
+        }
+
+        &>.right {
+            width: 100%;
+        }
+    }
+}
+
+@media only screen and (max-width:650px) {
+    .conteiner {
+        width: 100% !important;
     }
 }

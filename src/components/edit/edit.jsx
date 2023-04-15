@@ -13,11 +13,9 @@ export default function Edit() {
 
     useEffect(() => {
         dispatch(StartGetEditerPost())
-        console.log("render");
         Post.GetEditerPost(id)
             .then((res) => {
                 dispatch(SuccessGetEditerPost(res.data.product))
-                // console.log();
             }).catch((err) => {
                 dispatch(FailurGetEditerPost())
             })
@@ -46,13 +44,11 @@ export default function Edit() {
         dispatch(StartEdit())
         Post.EditPost(id, fd)
             .then((res) => {
-                console.log(res)
                 navigate('/')
                 SuccessEdit(res.data)
             })
             .catch((err) => {
                 FailurEdit(err)
-                console.log(err)
             })
     }
 

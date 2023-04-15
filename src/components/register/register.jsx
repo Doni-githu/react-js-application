@@ -20,7 +20,7 @@ export default function Register() {
         if (isLoggedIn) {
             navigate('/')
         }
-    }, [isLoggedIn])
+    }, [isLoggedIn, navigate])
 
     const FindUser = async () => {
         if (!email || !password) {
@@ -46,10 +46,10 @@ export default function Register() {
     }
 
     return (
-        <div className='w-50 text-center mx-auto'>
+        <div className='form'>
             <p className='fs-1'>Register</p>
             {error ? <Error error={error} setErr={setError} /> : null}
-            <form onSubmit={(e) => e.preventDefault()}>
+            <form onSubmit={(e) => e.preventDefault()} className='form'>
                 <Input label={"Nickname"} state={nickname} setState={setNickname} />
                 <Input label={"Email"} type={"email"} state={email} setState={setEmail} />
                 <Input label={"Password"} type={"password"} state={password} setState={setPassword} />

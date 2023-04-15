@@ -16,7 +16,6 @@ export default function Delete() {
         Post.DeletePost(id)
             .then((res) => {
                 navigate('/')
-                console.log(res.data)
             })
             .catch((err) => console.log(err))
     }

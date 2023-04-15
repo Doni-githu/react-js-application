@@ -12,6 +12,7 @@ export default function Detail() {
     const [text, setText] = useState('')
     const { detail, comments } = useSelector(state => state.post)
     const { isLoggedIn } = useSelector(state => state.auth)
+    const [toggle, setToggle] = useState(false)
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -20,7 +21,6 @@ export default function Detail() {
             .then((res) => {
                 dispatch(SuccessGetDetailPost(res.data))
             }).catch((err) => {
-                console.log(err);
                 dispatch(FailurGetAllPost())
             })
     }, [])
@@ -38,7 +38,7 @@ export default function Detail() {
         Post.CommentPost(data)
             .then((res) => {
                 dispatch(SuccessCommented(res.data.comments))
-                console.log(res.data.comments);
+                setText('')
             }).catch((err) => {
                 dispatch(FailurCommented())
             })
@@ -54,34 +54,39 @@ export default function Detail() {
                     <div className='title'>
                         <p>{detail.product?.title}</p>
                     </div>
-                    <div className='body'>
-                        <p>{detail.product?.body}</p>
-                    </div>
                 </div>
                 <div className="right">
-                    <p>When created {getDate(detail.product?.createdAt)}</p>
-                    {getDate(detail.product?.createdAt) !== getDate(detail.product?.updatedAt) ? <p>When updated {getDate(detail.product?.updatedAt)}</p> : null}
-                    {isLoggedIn ? <form onSubmit={e => { e.preventDefault() }}>
-                        <Input placeholder='Comment' label={"Comment"} setState={setText} state={text} />
-                        <button className='btn btn-primary' type='submit' onClick={() => makeComment(detail.product?._id)}>
-                            Send
-                        </button>
-                    </form> : null}
-                    <ul className='comments'>
-                        {comments ? comments.map((item, idx) => (
-                            <li key={idx}>
-                                <strong>{item.postedBy.username}</strong>
-                                <p>{item.text}</p>
-                            </li>
-                        )) : <>
-                            {detail.product?.comments.map((item, idx) => (
-                                <li key={idx}>
-                                    <strong>{item.postedBy.username}</strong>
-                                    <p>{item.text}</p>
-                                </li>
-                            ))}
-                        </>}
-                    </ul>
+                    {getDate(detail.product?.createdAt) === getDate(detail.product?.updatedAt) ? <p>When updated {getDate(detail.product?.updatedAt)}</p> : <p>When created {getDate(detail.product?.createdAt)}</p>}
+                    <div className="navigation">
+                        <button className='btn' onClick={() => setToggle(false)}>Description</button>
+                        <button className='btn' onClick={() => setToggle(true)}>Comment</button>
+                    </div>
+                    {toggle ?
+                        <>
+                            {isLoggedIn ? <form className='form2 mb-2' onSubmit={e => { e.preventDefault() }}>
+                                <Input placeholder='Comment' label={"Comment"} className={'input'} setState={setText} state={text} />
+                                <div className='btn'>
+                                    <button className='btn btn-primary' onClick={() => makeComment(detail.product?._id)}>Send</button>
+                                </div>
+                            </form> : null}
+                            <ul className='comments'>
+                                {comments ? comments.map((item, idx) => (
+                                    <li key={idx}>
+                                        <strong>{item.postedBy.username}</strong>
+                                        <p>{item.text}</p>
+                                    </li>
+                                )) : <>
+                                    {detail.product?.comments.map((item, idx) => (
+                                        <li key={idx}>
+                                            <strong>{item.postedBy.username}</strong>
+                                            <p>{item.text}</p>
+                                        </li>
+                                    ))}
+                                </>}
+                            </ul>
+                        </> : <div className='body'>
+                            <p>{detail.product?.body}</p>
+                        </div>}
                 </div>
             </div> : <center className='mt-5'>
                 <Loader />

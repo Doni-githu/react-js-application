@@ -4,5 +4,5 @@ import post from "../slice/post";
 
 export default configureStore({
     reducer: { auth, post },
-    devTools: process.env.NODE_ENV !== 'production'
+    devTools: false
 })
